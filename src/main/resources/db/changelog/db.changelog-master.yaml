@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-table-diagrams
+      author: vinicius.filho
+      changes:
+        - sqlFile:
+            path: db/changelog/changes/001-create-table-diagrams.sql
+            relativeToChangelogFile: false
+            splitStatements: true
+            endDelimiter: ";"
