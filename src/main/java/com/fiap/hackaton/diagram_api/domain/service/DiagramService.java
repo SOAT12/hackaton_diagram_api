@@ -21,7 +21,7 @@ public class DiagramService implements DiagramUseCase {
         Diagram diagram = new Diagram(fileName, data);
 
         diagramGateway.save(diagram);
-        //queueGateway.enqueue(diagram.getId());
+        queueGateway.enqueue(diagram.getId());
 
         return diagram.getId();
     }

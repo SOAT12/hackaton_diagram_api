@@ -5,9 +5,9 @@ spring:
     virtual:
       enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/diagram_db
-    username: diagram_api
-    password: diagramdbpass
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/diagram_db}
+    username: ${DB_USERNAME:diagram_api}
+    password: ${DB_PASSWORD:diagramdbpass}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
