@@ -1,6 +1,7 @@
 package com.fiap.hackaton.diagram_api.domain.service;
 
 import com.fiap.hackaton.diagram_api.domain.enumeration.DiagramStatus;
+import com.fiap.hackaton.diagram_api.domain.exception.ResourceNotFoundException;
 import com.fiap.hackaton.diagram_api.domain.gateway.DiagramGateway;
 import com.fiap.hackaton.diagram_api.domain.model.Diagram;
 import com.fiap.hackaton.diagram_api.infrastructure.messaging.dto.DiagramReportDto;
@@ -75,7 +76,7 @@ public class DiagramServiceTest {
         when(diagramGateway.findById(id)).thenReturn(Optional.empty());
 
         // Act & Assert
-        NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
             diagramService.getStatus(id);
         });
 
@@ -124,7 +125,7 @@ public class DiagramServiceTest {
         when(diagramGateway.findById(any())).thenReturn(Optional.empty());
 
         // Act & Assert
-        assertThrows(NoSuchElementException.class, () -> {
+        assertThrows(ResourceNotFoundException.class, () -> {
             diagramService.updateStatus(dto);
         });
 
