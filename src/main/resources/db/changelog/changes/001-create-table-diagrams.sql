@@ -4,6 +4,7 @@ CREATE TABLE diagrams (
     file_data BYTEA NOT NULL,
     status VARCHAR(20) NOT NULL,
     report_result TEXT,
+    notes TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );

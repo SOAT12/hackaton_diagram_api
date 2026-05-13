@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class DiagramDbAdapter implements DiagramGateway {
+public class DiagramRepository implements DiagramGateway {
 
     private final SpringDataDiagramRepository jpaRepository;
 
@@ -31,7 +31,8 @@ public class DiagramDbAdapter implements DiagramGateway {
                         entity.getFileData(),
                         DiagramStatus.valueOf(entity.getStatus()),
                         entity.getCreatedAt(),
-                        entity.getReportResult()
+                        entity.getReportResult(),
+                        entity.getNotes()
                 ));
     }
 
@@ -44,7 +45,8 @@ public class DiagramDbAdapter implements DiagramGateway {
                         entity.getFileData(),
                         DiagramStatus.valueOf(entity.getStatus()),
                         entity.getCreatedAt(),
-                        entity.getReportResult()
+                        entity.getReportResult(),
+                        entity.getNotes()
                 ))
                 .toList();
     }

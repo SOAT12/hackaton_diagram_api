@@ -1,4 +1,4 @@
-package com.fiap.hackaton.diagram_api.api.dto;
+package com.fiap.hackaton.diagram_api.infrastructure.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

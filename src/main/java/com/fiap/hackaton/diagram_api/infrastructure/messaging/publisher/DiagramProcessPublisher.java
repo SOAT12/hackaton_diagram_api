@@ -1,6 +1,5 @@
-package com.fiap.hackaton.diagram_api.infrastructure.messaging;
+package com.fiap.hackaton.diagram_api.infrastructure.messaging.publisher;
 
-import com.fiap.hackaton.diagram_api.domain.gateway.QueueGateway;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,14 +11,13 @@ import java.util.UUID;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SqsQueueAdapter implements QueueGateway {
+public class DiagramProcessPublisher {
 
     private final SqsTemplate sqsTemplate;
 
     @Value("${spring.cloud.aws.sqs.queue-name}")
     private String queueName;
 
-    @Override
     public void enqueue(UUID diagramId) {
         log.info("Enviando diagrama {} para a fila SQS: {}", diagramId, queueName);
 

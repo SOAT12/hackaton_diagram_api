@@ -36,6 +36,8 @@ public class DiagramEntity {
 
     private String reportResult;
 
+    private String notes;
+
     public static DiagramEntity fromDomain(Diagram diagram) {
         return new DiagramEntity(
                 diagram.getId(),
@@ -43,7 +45,8 @@ public class DiagramEntity {
                 diagram.getFileData(),
                 diagram.getStatus().name(),
                 diagram.getCreatedAt(),
-                diagram.getReportResult()
+                diagram.getReportResult(),
+                diagram.getNotes()
         );
     }
 

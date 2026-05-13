@@ -1,7 +1,7 @@
-package com.fiap.hackaton.diagram_api.api.controller;
+package com.fiap.hackaton.diagram_api.infrastructure.api.controller;
 
-import com.fiap.hackaton.diagram_api.api.dto.DiagramStatusResponseDto;
-import com.fiap.hackaton.diagram_api.api.dto.DiagramUploadResponseDto;
+import com.fiap.hackaton.diagram_api.infrastructure.api.dto.DiagramStatusResponseDto;
+import com.fiap.hackaton.diagram_api.infrastructure.api.dto.DiagramUploadResponseDto;
 import com.fiap.hackaton.diagram_api.domain.usecase.DiagramUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

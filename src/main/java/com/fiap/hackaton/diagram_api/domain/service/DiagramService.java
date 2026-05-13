@@ -1,9 +1,11 @@
 package com.fiap.hackaton.diagram_api.domain.service;
 
+import com.fiap.hackaton.diagram_api.domain.exception.ResourceNotFoundException;
 import com.fiap.hackaton.diagram_api.domain.gateway.DiagramGateway;
-import com.fiap.hackaton.diagram_api.domain.gateway.QueueGateway;
 import com.fiap.hackaton.diagram_api.domain.model.Diagram;
 import com.fiap.hackaton.diagram_api.domain.usecase.DiagramUseCase;
+import com.fiap.hackaton.diagram_api.infrastructure.messaging.dto.DiagramStatusUpdateDto;
+import com.fiap.hackaton.diagram_api.infrastructure.messaging.publisher.DiagramProcessPublisher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +16,35 @@ import java.util.UUID;
 public class DiagramService implements DiagramUseCase {
 
     private final DiagramGateway diagramGateway;
-    private final QueueGateway queueGateway;
+    private final DiagramProcessPublisher diagramProcessPublisher;
 
     @Override
     public UUID upload(String fileName, byte[] data) {
         Diagram diagram = new Diagram(fileName, data);
 
         diagramGateway.save(diagram);
-        queueGateway.enqueue(diagram.getId());
+        diagramProcessPublisher.enqueue(diagram.getId());
 
         return diagram.getId();
     }
 
     @Override
     public Diagram getStatus(UUID id) {
+        return this.findByIdOrElseThrow(id);
+    }
+
+    @Override
+    public void updateStatus(DiagramStatusUpdateDto diagramStatusUpdateDto) {
+        var diagram = this.findByIdOrElseThrow(diagramStatusUpdateDto.diagramId());
+        diagram.setStatus(diagramStatusUpdateDto.status());
+        diagram.setNotes(diagramStatusUpdateDto.notes());
+        diagramGateway.save(diagram);
+        // TODO - Implementar chamada à Report API
+    }
+
+    private Diagram findByIdOrElseThrow(UUID id) {
         return diagramGateway.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("Diagrama não encontrado com o ID: " + id));
     }
 
 }
