@@ -29,14 +29,14 @@ public class Diagram {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Diagram(UUID id, String fileName, byte[] fileData, DiagramStatus status, LocalDateTime createdAt, String reportResult, String notess) {
+    public Diagram(UUID id, String fileName, byte[] fileData, DiagramStatus status, LocalDateTime createdAt, String reportResult, String notes) {
         this.id = id;
         this.fileName = fileName;
         this.fileData = fileData;
         this.status = status;
         this.createdAt = createdAt;
         this.reportResult = reportResult;
-        this.notes = notess;
+        this.notes = notes;
     }
 
     private void validate(String fileName, byte[] fileData) {
