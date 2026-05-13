@@ -15,7 +15,7 @@ public class DiagramProcessPublisher {
 
     private final SqsTemplate sqsTemplate;
 
-    @Value("${spring.cloud.aws.sqs.queue-name}")
+    @Value("${spring.cloud.aws.sqs.queue-diagram.process}")
     private String queueName;
 
     public void enqueue(UUID diagramId) {
