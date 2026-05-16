@@ -5,6 +5,7 @@ import com.fiap.hackaton.diagram_api.domain.exception.ResourceNotFoundException;
 import com.fiap.hackaton.diagram_api.domain.gateway.DiagramGateway;
 import com.fiap.hackaton.diagram_api.domain.model.Diagram;
 import com.fiap.hackaton.diagram_api.domain.usecase.DiagramUseCase;
+import com.fiap.hackaton.diagram_api.infrastructure.client.DiagramReportClient;
 import com.fiap.hackaton.diagram_api.infrastructure.messaging.dto.DiagramStatusUpdateDto;
 import com.fiap.hackaton.diagram_api.infrastructure.messaging.publisher.DiagramProcessPublisher;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class DiagramService implements DiagramUseCase {
 
     private final DiagramGateway diagramGateway;
     private final DiagramProcessPublisher diagramProcessPublisher;
+    private final DiagramReportClient diagramReportClient;
 
     @Override
     public UUID upload(String fileName, String contentType, byte[] data) {
@@ -38,14 +40,14 @@ public class DiagramService implements DiagramUseCase {
     public void updateStatus(DiagramStatusUpdateDto diagramStatusUpdateDto) {
         var diagram = this.findByIdOrElseThrow(diagramStatusUpdateDto.diagramId());
 
-        if(DiagramStatus.PROCESSED.equals(diagramStatusUpdateDto.status())) {
-            // TODO - Implementar chamada à Report API
-        }
-
         diagram.setStatus(diagramStatusUpdateDto.status());
         diagram.setReportResult(diagramStatusUpdateDto.reportLink());
         diagram.setNotes(diagramStatusUpdateDto.notes());
         diagramGateway.save(diagram);
+
+        if(DiagramStatus.PROCESSED.equals(diagramStatusUpdateDto.status())) {
+            diagramReportClient.sendReport(diagramStatusUpdateDto);
+        }
     }
 
     private Diagram findByIdOrElseThrow(UUID id) {
