@@ -5,7 +5,7 @@ spring:
     virtual:
       enabled: true
   datasource:
-    url: ${DB_URL:jdbc:postgresql://localhost:5432/diagram_db}
+    url: ${DB_URL:jdbc:postgresql://diagram-db-instance.c7yaceqg6baa.us-east-1.rds.amazonaws.com:5432/diagram_db}
     username: ${DB_USERNAME:diagram_api}
     password: ${DB_PASSWORD:diagramdbpass}
     driver-class-name: org.postgresql.Driver
@@ -30,10 +30,11 @@ spring:
     aws:
       region:
         static: us-east-1
-      credentials:
-        access-key: ${AWS_ACCESS_KEY}
-        secret-key: ${AWS_SECRET_KEY}
       sqs:
-        endpoint: http://localhost:4566
-        queue-diagram.process: diagram.process
-        queue-diagram.status.update: diagram.status.update
+        queue-diagram.process: ${SQS_PROCESS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-process}
+        queue-diagram.status.update: ${SQS_STATUS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-status-update}
+
+aws:
+  access-key-id: ${AWS_ACCESS_KEY_ID}
+  secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+  session-token: ${AWS_SESSION_TOKEN}
