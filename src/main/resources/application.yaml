@@ -31,8 +31,8 @@ spring:
       region:
         static: us-east-1
       sqs:
-        queue-diagram.process: ${SQS_PROCESS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-process}
-        queue-diagram.status.update: ${SQS_STATUS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-status-update}
+        queue-diagram-process: ${SQS_PROCESS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-process}
+        queue-diagram-status-update: ${SQS_STATUS_URL:https://sqs.us-east-1.amazonaws.com/481824691194/diagram-status-update}
 
 aws:
   access-key-id: ${AWS_ACCESS_KEY_ID}

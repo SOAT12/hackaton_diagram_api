@@ -28,6 +28,7 @@ public class DiagramRepository implements DiagramGateway {
                 .map(entity -> new Diagram(
                         entity.getId(),
                         entity.getFileName(),
+                        entity.getContentType(),
                         entity.getFileData(),
                         DiagramStatus.valueOf(entity.getStatus()),
                         entity.getCreatedAt(),
@@ -42,6 +43,7 @@ public class DiagramRepository implements DiagramGateway {
                 .map(entity -> new Diagram(
                         entity.getId(),
                         entity.getFileName(),
+                        entity.getContentType(),
                         entity.getFileData(),
                         DiagramStatus.valueOf(entity.getStatus()),
                         entity.getCreatedAt(),

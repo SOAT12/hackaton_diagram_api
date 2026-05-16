@@ -41,15 +41,16 @@ public class DiagramServiceTest {
     void shouldUploadSuccessfully() {
         // Arrange
         String fileName = "teste.png";
+        String contentType = "image/png";
         byte[] data = {1, 2, 3};
 
         // Act
-        UUID resultId = diagramService.upload(fileName, data);
+        UUID resultId = diagramService.upload(fileName, contentType, data);
 
         // Assert
         assertNotNull(resultId);
         verify(diagramGateway, times(1)).save(any(Diagram.class));
-        verify(diagramProcessPublisher, times(1)).enqueue(resultId);
+        verify(diagramProcessPublisher, times(1)).enqueue(any(Diagram.class));
     }
 
     @Test
@@ -57,7 +58,7 @@ public class DiagramServiceTest {
     void shouldGetStatusSuccessfully() {
         // Arrange
         UUID id = UUID.randomUUID();
-        Diagram mockDiagram = new Diagram("file.png", new byte[]{1});
+        Diagram mockDiagram = new Diagram("file.png", "image/png", new byte[]{1});
         when(diagramGateway.findById(id)).thenReturn(Optional.of(mockDiagram));
 
         // Act
@@ -88,7 +89,7 @@ public class DiagramServiceTest {
     void shouldUpdateStatusSuccessfully() {
         // Arrange
         UUID diagramId = UUID.randomUUID();
-        Diagram existingDiagram = new Diagram("projeto_original.png", new byte[]{1, 2, 3});
+        Diagram existingDiagram = new Diagram("projeto_original.png", "image/png", new byte[]{1, 2, 3});
         DiagramReportDto reportDto = new DiagramReportDto(
                 List.of("S3 Bucket", "EC2 Instance"),
                 List.of("Bucket público"),

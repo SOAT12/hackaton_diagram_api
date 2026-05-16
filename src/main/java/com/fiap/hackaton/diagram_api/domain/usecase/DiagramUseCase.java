@@ -6,7 +6,7 @@ import com.fiap.hackaton.diagram_api.infrastructure.messaging.dto.DiagramStatusU
 import java.util.UUID;
 
 public interface DiagramUseCase {
-    UUID upload(String fileName, byte[] data);
+    UUID upload(String fileName, String contentType, byte[] data);
     Diagram getStatus(UUID id);
     void updateStatus(DiagramStatusUpdateDto diagramStatusUpdateDto);
 }

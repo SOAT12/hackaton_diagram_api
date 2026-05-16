@@ -19,11 +19,11 @@ public class DiagramService implements DiagramUseCase {
     private final DiagramProcessPublisher diagramProcessPublisher;
 
     @Override
-    public UUID upload(String fileName, byte[] data) {
-        Diagram diagram = new Diagram(fileName, data);
+    public UUID upload(String fileName, String contentType, byte[] data) {
+        Diagram diagram = new Diagram(fileName, contentType, data);
 
         diagramGateway.save(diagram);
-        diagramProcessPublisher.enqueue(diagram.getId());
+        diagramProcessPublisher.enqueue(diagram);
 
         return diagram.getId();
     }

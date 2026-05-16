@@ -26,6 +26,8 @@ public class DiagramEntity {
 
     private String fileName;
 
+    private String contentType;
+
     @JdbcTypeCode(Types.BINARY)
     @Column(name = "file_data")
     private byte[] fileData;
@@ -42,6 +44,7 @@ public class DiagramEntity {
         return new DiagramEntity(
                 diagram.getId(),
                 diagram.getFileName(),
+                diagram.getContentType(),
                 diagram.getFileData(),
                 diagram.getStatus().name(),
                 diagram.getCreatedAt(),

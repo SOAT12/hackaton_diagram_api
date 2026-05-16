@@ -1,6 +1,7 @@
 CREATE TABLE diagrams (
     id UUID PRIMARY KEY,
     file_name VARCHAR(255) NOT NULL,
+    content_type VARCHAR(255) NOT NULL,
     file_data BYTEA NOT NULL,
     status VARCHAR(20) NOT NULL,
     report_result TEXT,

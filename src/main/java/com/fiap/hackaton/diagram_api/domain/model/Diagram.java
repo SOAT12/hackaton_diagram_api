@@ -12,6 +12,7 @@ public class Diagram {
 
     private UUID id;
     private String fileName;
+    private String contentType;
     private DiagramStatus status;
     private byte[] fileData;
     private String reportResult;
@@ -19,19 +20,21 @@ public class Diagram {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public Diagram(String fileName, byte[] fileData) {
+    public Diagram(String fileName, String contentType, byte[] fileData) {
         validate(fileName, fileData);
 
         this.id = UUID.randomUUID();
         this.fileName = fileName;
+        this.contentType = contentType;
         this.fileData = fileData;
         this.status = DiagramStatus.PENDING;
         this.createdAt = LocalDateTime.now();
     }
 
-    public Diagram(UUID id, String fileName, byte[] fileData, DiagramStatus status, LocalDateTime createdAt, String reportResult, String notes) {
+    public Diagram(UUID id, String fileName, String contentType, byte[] fileData, DiagramStatus status, LocalDateTime createdAt, String reportResult, String notes) {
         this.id = id;
         this.fileName = fileName;
+        this.contentType = contentType;
         this.fileData = fileData;
         this.status = status;
         this.createdAt = createdAt;

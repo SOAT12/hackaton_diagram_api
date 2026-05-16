@@ -39,6 +39,7 @@ public class DiagramControllerTest {
         // Arrange
         UUID generatedId = UUID.randomUUID();
         String fileName = "diagrama.png";
+        String contentType = "image/png";
         byte[] content = "conteudo-teste".getBytes();
 
         MockMultipartFile file = new MockMultipartFile(
@@ -48,7 +49,7 @@ public class DiagramControllerTest {
                 content
         );
 
-        when(diagramUseCase.upload(eq(fileName), any(byte[].class))).thenReturn(generatedId);
+        when(diagramUseCase.upload(eq(fileName), eq(contentType), any(byte[].class))).thenReturn(generatedId);
 
         // Act & Assert
         mockMvc.perform(multipart("/v1/diagrams").file(file))
@@ -61,7 +62,7 @@ public class DiagramControllerTest {
     void shouldGetStatusSuccessfully() throws Exception {
         // Arrange
         UUID id = UUID.randomUUID();
-        Diagram mockDiagram = new Diagram("projeto.png", new byte[]{1});
+        Diagram mockDiagram = new Diagram("projeto.png", "image/png", new byte[]{1});
         mockDiagram.setId(id);
         mockDiagram.setStatus(DiagramStatus.PENDING);
         mockDiagram.setReportResult("Nenhum risco detectado");

@@ -17,16 +17,15 @@ public class DiagramTest {
     @Test
     @DisplayName("Deve criar um diagrama com sucesso quando os dados forem válidos")
     void shouldCreateDiagramSuccessfully() {
-        // Arrange
         String fileName = "projeto.png";
+        String contentType = "image/png";
         byte[] fileData = "conteudo-binario".getBytes();
 
-        // Act
-        Diagram diagram = new Diagram(fileName, fileData);
+        Diagram diagram = new Diagram(fileName, contentType, fileData);
 
-        // Assert
         assertNotNull(diagram.getId());
         assertEquals(fileName, diagram.getFileName());
+        assertEquals(contentType, diagram.getContentType());
         assertArrayEquals(fileData, diagram.getFileData());
         assertEquals(DiagramStatus.PENDING, diagram.getStatus());
         assertNotNull(diagram.getCreatedAt());
@@ -40,9 +39,9 @@ public class DiagramTest {
     void shouldThrowExceptionWhenFileNameIsInvalid(String invalidFileName) {
         byte[] fileData = {1, 2, 3};
 
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new Diagram(invalidFileName, fileData);
-        });
+        Exception exception = assertThrows(IllegalArgumentException.class, () ->
+                new Diagram(invalidFileName, "image/png", fileData)
+        );
 
         assertEquals("O nome do arquivo é obrigatório.", exception.getMessage());
     }
@@ -50,37 +49,36 @@ public class DiagramTest {
     @Test
     @DisplayName("Deve lançar exceção ao tentar criar diagrama com dados do arquivo nulos")
     void shouldThrowExceptionWhenFileDataIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Diagram("teste.jpg", null);
-        }, "O conteúdo do arquivo não pode estar vazio.");
+        assertThrows(IllegalArgumentException.class, () ->
+                        new Diagram("teste.jpg", "image/jpeg", null),
+                "O conteúdo do arquivo não pode estar vazio.");
     }
 
     @Test
     @DisplayName("Deve lançar exceção ao tentar criar diagrama com dados do arquivo vazios")
     void shouldThrowExceptionWhenFileDataIsEmpty() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Diagram("teste.jpg", new byte[0]);
-        });
+        assertThrows(IllegalArgumentException.class, () ->
+                new Diagram("teste.jpg", "image/jpeg", new byte[0])
+        );
     }
 
     @Test
     @DisplayName("Deve instanciar corretamente através do construtor completo")
     void shouldInstantiateWithFullConstructor() {
-        // Arrange
         UUID id = UUID.randomUUID();
         String fileName = "completo.pdf";
+        String contentType = "application/pdf";
         byte[] data = {10, 20};
         DiagramStatus status = DiagramStatus.PENDING;
         LocalDateTime now = LocalDateTime.now();
         String report = "Sucesso";
         String notes = "Observação";
 
-        // Act
-        Diagram diagram = new Diagram(id, fileName, data, status, now, report, notes);
+        Diagram diagram = new Diagram(id, fileName, contentType, data, status, now, report, notes);
 
-        // Assert
         assertEquals(id, diagram.getId());
         assertEquals(fileName, diagram.getFileName());
+        assertEquals(contentType, diagram.getContentType());
         assertEquals(status, diagram.getStatus());
         assertEquals(report, diagram.getReportResult());
         assertEquals(notes, diagram.getNotes());

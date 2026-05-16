@@ -32,7 +32,7 @@ public class DiagramRepositoryTest {
     @DisplayName("Deve converter domínio para entidade e salvar")
     void shouldSaveDiagramSuccessfully() {
         // Arrange
-        Diagram diagram = new Diagram("teste.png", new byte[]{1, 2, 3});
+        Diagram diagram = new Diagram("teste.png", "image/png", new byte[]{1, 2, 3});
 
         // Act
         diagramRepository.save(diagram);

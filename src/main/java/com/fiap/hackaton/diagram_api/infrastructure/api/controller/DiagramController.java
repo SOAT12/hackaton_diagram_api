@@ -19,7 +19,7 @@ public class DiagramController {
 
     @PostMapping
     public DiagramUploadResponseDto upload(@RequestParam("file") MultipartFile file) throws IOException {
-        UUID id = diagramUseCase.upload(file.getOriginalFilename(), file.getBytes());
+        UUID id = diagramUseCase.upload(file.getOriginalFilename(), file.getContentType(), file.getBytes());
         return new DiagramUploadResponseDto(id);
     }
 
