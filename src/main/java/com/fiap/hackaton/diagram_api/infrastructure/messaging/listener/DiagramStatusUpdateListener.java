@@ -17,7 +17,7 @@ public class DiagramStatusUpdateListener {
 
     @SqsListener("${spring.cloud.aws.sqs.queue-diagram-status-update}")
     public void onDiagramUpdate(@Valid DiagramStatusUpdateDto message) {
-        log.info("Mensagem recebida para o Diagrama ID: {}", message.diagramId());
+        log.info("Mensagem recebida para o Diagrama ID: {} com status: {}", message.diagramId(), message.status());
         diagramUseCase.updateStatus(message);
     }
 

@@ -1,5 +1,6 @@
 package com.fiap.hackaton.diagram_api.domain.service;
 
+import com.fiap.hackaton.diagram_api.domain.enumeration.DiagramStatus;
 import com.fiap.hackaton.diagram_api.domain.exception.ResourceNotFoundException;
 import com.fiap.hackaton.diagram_api.domain.gateway.DiagramGateway;
 import com.fiap.hackaton.diagram_api.domain.model.Diagram;
@@ -36,10 +37,15 @@ public class DiagramService implements DiagramUseCase {
     @Override
     public void updateStatus(DiagramStatusUpdateDto diagramStatusUpdateDto) {
         var diagram = this.findByIdOrElseThrow(diagramStatusUpdateDto.diagramId());
+
+        if(DiagramStatus.PROCESSED.equals(diagramStatusUpdateDto.status())) {
+            // TODO - Implementar chamada à Report API
+        }
+
         diagram.setStatus(diagramStatusUpdateDto.status());
+        diagram.setReportResult(diagramStatusUpdateDto.reportLink());
         diagram.setNotes(diagramStatusUpdateDto.notes());
         diagramGateway.save(diagram);
-        // TODO - Implementar chamada à Report API
     }
 
     private Diagram findByIdOrElseThrow(UUID id) {

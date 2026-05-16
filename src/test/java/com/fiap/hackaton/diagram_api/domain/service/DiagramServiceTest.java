@@ -100,6 +100,7 @@ public class DiagramServiceTest {
                 "Novo Título",
                 DiagramStatus.COMPLETED,
                 reportDto,
+                "https://link.com",
                 LocalDateTime.now(),
                 "Processamento concluído com sucesso"
         );
@@ -121,7 +122,7 @@ public class DiagramServiceTest {
         // Arrange
         UUID missingId = UUID.randomUUID();
         DiagramStatusUpdateDto dto = new DiagramStatusUpdateDto(
-                missingId, "Title", DiagramStatus.FAILED, null, LocalDateTime.now(), "Error"
+                missingId, "Title", DiagramStatus.FAILED, null, "https://link.com", LocalDateTime.now(), "Error"
         );
         when(diagramGateway.findById(any())).thenReturn(Optional.empty());
 

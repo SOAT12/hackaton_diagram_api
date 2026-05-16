@@ -10,6 +10,7 @@ public record DiagramStatusUpdateDto(
         String title,
         DiagramStatus status,
         DiagramReportDto report,
+        String reportLink,
         LocalDateTime createdAt,
         String notes
 ) {}
